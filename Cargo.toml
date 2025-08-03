@@ -1,0 +1,16 @@
+[package]
+name = "papa_moo_3_bills"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+printpdf = "0.7.0"
+csv = "1.3"
+chrono = "0.4"
+serde = { version = "1.0", features = ["derive"] }
+serde_derive = "1.0"
+font-kit = "0.11.0"
+reqwest = { version = "0.11", features = ["blocking"] }
+dirs = "5.0"
+log = "0.4"
+env_logger = "0.10"
