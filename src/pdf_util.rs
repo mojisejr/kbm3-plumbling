@@ -25,9 +25,9 @@ pub fn create_pdf(
 
     // ตั้งค่าฟอนต์ภาษาไทย
     let (font, bold_font, italic_font) = find_thai_font(&doc);
-    let font_size_normal = 8.4; // เพิ่ม 20% จาก 7.0
-    let font_size_subtitle = 9.6; // เพิ่ม 20% จาก 8.0
-    let font_size_title = 12.0; // เพิ่ม 20% จาก 10.0
+    let font_size_normal = 12.0;
+    let font_size_subtitle = 14.0;
+    let font_size_title = 16.0;
 
     // สร้างใบเสร็จ 2 ใบต่อหน้า
     let chunks: Vec<_> = records.chunks(2).collect();
@@ -45,7 +45,7 @@ pub fn create_pdf(
         };
 
         // ตำแหน่ง Y offset สำหรับใบเสร็จแต่ละใบในหน้านี้
-        let y_offset_top_bill = Mm(190.0); // ลดลงจาก 195.0
+        let y_offset_top_bill = Mm(198.0); // ลดลงจาก 195.0
         let y_offset_bottom_bill = Mm(100.0); // ลดลงจาก 105.0
 
         for (j, bill) in record_pair.iter().enumerate() {
@@ -86,8 +86,8 @@ pub fn create_pdf(
             current_layer.use_text(
                 "วันออกบิล",
                 font_size_normal,
-                Mm(15.0),            // ตำแหน่ง X
-                y_offset - Mm(22.0), // ปรับระยะห่าง
+                Mm(8.0),             // ตำแหน่ง X
+                y_offset - Mm(26.0), // ปรับระยะห่าง
                 &bold_font,
             );
             current_layer.use_text(
@@ -118,8 +118,8 @@ pub fn create_pdf(
                         .to_string()
                 ),
                 font_size_normal,
-                Mm(35.0),            // ตำแหน่ง X ถัดมา
-                y_offset - Mm(22.0), // ลดระยะห่างลง 20%
+                Mm(30.0),            // ตำแหน่ง X ถัดมา
+                y_offset - Mm(26.0), // ลดระยะห่างลง 20%
                 &italic_font,
             );
 
@@ -127,15 +127,15 @@ pub fn create_pdf(
             current_layer.use_text(
                 "id.",
                 font_size_normal,
-                Mm(95.0),
-                y_offset - Mm(10.0),
+                Mm(8.0),
+                y_offset - Mm(15.0),
                 &bold_font,
             );
             current_layer.use_text(
                 &bill.order.to_string(),
                 font_size_normal,
-                Mm(115.0),
-                y_offset - Mm(10.0),
+                Mm(30.5),
+                y_offset - Mm(15.0),
                 &italic_font,
             );
 
@@ -143,15 +143,15 @@ pub fn create_pdf(
             current_layer.use_text(
                 "ประจำเดือน",
                 font_size_normal,
-                Mm(95.0),            // ตำแหน่ง X ทางขวา
-                y_offset - Mm(15.0), // ลดระยะห่างลง 20%
+                Mm(8.0),             // ตำแหน่ง X ทางขวา
+                y_offset - Mm(20.0), // ลดระยะห่างลง 20%
                 &bold_font,
             );
             current_layer.use_text(
                 for_month, // ใช้ค่าคงที่ไปก่อน
                 font_size_normal,
-                Mm(115.0),           // ตำแหน่ง X ถัดมา
-                y_offset - Mm(15.0), // ลดระยะห่างลง 20%
+                Mm(30.5),            // ตำแหน่ง X ถัดมา
+                y_offset - Mm(20.0), // ลดระยะห่างลง 20%
                 &italic_font,
             );
 
@@ -159,52 +159,52 @@ pub fn create_pdf(
             current_layer.use_text(
                 "ชื่อ-นามสกุล",
                 font_size_normal,
-                Mm(15.0),            // ตำแหน่ง X ถัดมา
-                y_offset - Mm(27.0), // ลดระยะห่างลง 20%
+                Mm(60.0),            // ตำแหน่ง X ถัดมา
+                y_offset - Mm(15.0), // ลดระยะห่างลง 20%
                 &bold_font,
             );
             current_layer.use_text(
                 &bill.name,
                 font_size_normal,
-                Mm(35.0),            // ตำแหน่ง X ถัดมา
-                y_offset - Mm(27.0), // ลดระยะห่างลง 20%
+                Mm(90.0),            // ตำแหน่ง X ถัดมา
+                y_offset - Mm(15.0), // ลดระยะห่างลง 20%
                 &italic_font,
             );
 
             // หัวตาราง
             let table_header_y = y_offset - Mm(35.0); // ปรับระยะห่าง
             current_layer.use_text(
-                "หมายเลขมิเตอร์",
+                "เลขมิเตอร์",
                 font_size_normal,
-                Mm(15.0),
+                Mm(8.0), // เริ่มต้นที่ตำแหน่งเดียวกับ "วันที่ออกบิล"
                 table_header_y,
                 &bold_font,
             );
             current_layer.use_text(
                 "เลขอ่านครั้งหลัง",
                 font_size_normal,
-                Mm(45.0),
+                Mm(28.0), // ปรับให้มีระยะห่างเพียงพอ
                 table_header_y,
                 &bold_font,
             );
             current_layer.use_text(
                 "เลขอ่านครั้งก่อน",
                 font_size_normal,
-                Mm(70.0),
+                Mm(58.0), // ปรับให้มีระยะห่างเพียงพอ
                 table_header_y,
                 &bold_font,
             );
             current_layer.use_text(
                 "จำนวนหน่วย",
                 font_size_normal,
-                Mm(95.0),
+                Mm(88.0), // ปรับให้มีระยะห่างเพียงพอ
                 table_header_y,
                 &bold_font,
             );
             current_layer.use_text(
                 "จำนวนเงิน",
                 font_size_normal,
-                Mm(115.0),
+                Mm(113.0), // ปรับให้อยู่ในขอบเขต 135
                 table_header_y,
                 &bold_font,
             );
@@ -217,21 +217,21 @@ pub fn create_pdf(
             current_layer.use_text(
                 &bill.meter_number,
                 font_size_normal,
-                Mm(15.0),
+                Mm(8.0), // ตรงกับหัวตาราง "หมายเลขมิเตอร์"
                 table_data_y_start,
                 &font,
             );
             current_layer.use_text(
                 &bill.current_reading.to_string(),
                 font_size_normal,
-                Mm(45.0),
+                Mm(33.0), // ตรงกับหัวตาราง "เลขอ่านครั้งหลัง"
                 table_data_y_start,
                 &font,
             );
             current_layer.use_text(
                 &bill.previous_reading.to_string(),
                 font_size_normal,
-                Mm(70.0),
+                Mm(58.0), // ตรงกับหัวตาราง "เลขอ่านครั้งก่อน"
                 table_data_y_start,
                 &font,
             );
@@ -240,14 +240,14 @@ pub fn create_pdf(
             current_layer.use_text(
                 "ค่าบำรุง",
                 font_size_normal,
-                Mm(95.0),
+                Mm(89.0), // ตรงกับหัวตาราง "จำนวนหน่วย"
                 table_data_y_start,
                 &bold_font,
             );
             current_layer.use_text(
                 &bill.maintenance_fee.to_string(),
                 font_size_normal,
-                Mm(115.0),
+                Mm(115.0), // ตรงกับหัวตาราง "จำนวนเงิน"
                 table_data_y_start,
                 &font,
             );
@@ -256,7 +256,7 @@ pub fn create_pdf(
             current_layer.use_text(
                 &bill.units.to_string(),
                 font_size_normal,
-                Mm(95.0),
+                Mm(89.0), // ตรงกับหัวตาราง "จำนวนหน่วย"
                 table_data_y_start - table_data_y_line_height,
                 &font,
             );
@@ -265,7 +265,7 @@ pub fn create_pdf(
             current_layer.use_text(
                 &units_cost.to_string(),
                 font_size_normal,
-                Mm(115.0),
+                Mm(115.0), // ตรงกับหัวตาราง "จำนวนเงิน"
                 table_data_y_start - table_data_y_line_height,
                 &font,
             );
@@ -274,14 +274,14 @@ pub fn create_pdf(
             current_layer.use_text(
                 "รวม",
                 font_size_normal,
-                Mm(95.0),
+                Mm(89.0), // ตรงกับหัวตาราง "จำนวนหน่วย"
                 table_data_y_start - table_data_y_line_height * 2.0,
                 &bold_font,
             );
             current_layer.use_text(
                 &bill.total_amount.to_string(),
                 font_size_normal,
-                Mm(115.0),
+                Mm(115.0), // ตรงกับหัวตาราง "จำนวนเงิน"
                 table_data_y_start - table_data_y_line_height * 2.0,
                 &font,
             );
@@ -289,10 +289,10 @@ pub fn create_pdf(
             // สามารถเพิ่มการวาดเส้นเพื่อทำตารางได้ที่นี่
             //เส้นใต้ข้อมูล
             let split_line = draw_bill_split_line();
-            let id_underline = draw_line(y_offset - Mm(11.0), Mm(114.0), Mm(122.0));
-            let month_underline = draw_line(y_offset - Mm(16.0), Mm(114.0), Mm(122.0));
-            let bill_date_underline = draw_line(y_offset - Mm(23.0), Mm(30.0), Mm(70.0));
-            let name_underline = draw_line(y_offset - Mm(28.0), Mm(30.0), Mm(70.0));
+            let id_underline = draw_line(y_offset - Mm(16.0), Mm(30.0), Mm(36.0));
+            let month_underline = draw_line(y_offset - Mm(21.0), Mm(30.0), Mm(38.0));
+            let bill_date_underline = draw_line(y_offset - Mm(27.0), Mm(30.0), Mm(55.0));
+            let name_underline = draw_line(y_offset - Mm(16.0), Mm(84.0), Mm(135.0));
 
             current_layer.add_line(id_underline);
             current_layer.add_line(month_underline);
@@ -301,11 +301,11 @@ pub fn create_pdf(
             current_layer.add_line(split_line);
 
             //เส้นตาราง
-            let header_line_top = draw_line(y_offset - Mm(31.0), Mm(13.0), Mm(128.0));
-            let header_line_bottom = draw_line(y_offset - Mm(36.0), Mm(13.0), Mm(128.0));
-            let middle_line = draw_line(y_offset - Mm(51.0), Mm(13.0), Mm(128.0));
-            let vertical_line_1 = draw_vetical_line(Mm(92.0), Mm(159.5), Mm(130.0));
-            let vertical_line_2 = draw_vetical_line(Mm(92.0), Mm(69.5), Mm(40.0));
+            let header_line_top = draw_line(y_offset - Mm(30.0), Mm(6.0), Mm(135.0)); // เส้นบนตาราง จาก 8 ถึง 135
+            let header_line_bottom = draw_line(y_offset - Mm(37.0), Mm(6.0), Mm(135.0)); // เส้นล่างหัวตาราง
+            let middle_line = draw_line(y_offset - Mm(51.0), Mm(6.0), Mm(135.0)); // เส้นล่างตาราง
+            let vertical_line_1 = draw_vetical_line(Mm(87.5), Mm(168.2), Mm(140.0)); // เส้นแนวตั้งระหว่าง "เลขอ่านครั้งก่อน" และ "จำนวนหน่วย" (58+83)/2 = 70.5
+            let vertical_line_2 = draw_vetical_line(Mm(87.0), Mm(70.2), Mm(40.0)); // เส้นแนวตั้งเดิม
 
             current_layer.add_line(header_line_top);
             current_layer.add_line(header_line_bottom);
