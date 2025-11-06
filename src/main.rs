@@ -14,9 +14,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     log::init_logger();
 
     //----- INPUT DATA
-    let input_path = "./input-csv/bills_sep_68.csv";
-    let for_month = "ก.ย.";
-    let bill_name = "bills/plumbing_sep_68.pdf";
+    let input_path = "./input-csv/bills_oct_68.csv";
+    let for_month = "ต.ค.";
+    let bill_name = "bills/plumbing_oct_68.pdf";
     //----- INPUT DATA
 
     log::log_info("=== เริ่มโปรแกรมสร้างใบเสร็จ ===");

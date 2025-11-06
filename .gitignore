@@ -4,5 +4,7 @@
 .qwen
 
 .backup/
+.DS_Store
+
 
 
